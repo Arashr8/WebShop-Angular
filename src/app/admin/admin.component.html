@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="card-header">
+    <h3>List of your orders</h3>
+    <p>Your company id is: 10</p>
+  </div>
+  <div class="card-body">
+      <div class="alert alert-info" *ngIf="loading else orders_template">
+        Loading orders...
+      </div>
+
+      <ng-template #orders_template>
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <td>ID</td>
+              <td>Created By</td>
+              <td>Price</td>
+              <td>Status</td>
+              <td>Remove</td>
+            </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let order of orders">
+                <tr>
+                  <td>{{ order.id }}</td>
+                  <td>{{ limit(order.createdBy, 50) }}</td>
+                  <td>{{ order.totalPrice }}</td>
+                  <td>{{ order.status == 0 ? "Failed" : "Successful" }}</td>
+                  <td>
+                    <button class="btn btn-sm btn-danger" (click)="remove(order)"> Remove</button>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+      </ng-template>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="alert alert-warning" *ngIf="ids.length == 0 else cart">
+  Your shopping cart is empty. Go back to <a routerLink="/">home</a> and add some products.
+</div>
+
+<ng-template #cart>
+  <div class="card">
+    <div class="card-header">
+      <h3>Checkout</h3>
+      <p>Cart Items</p>
+    </div>
+    <div class="card-body">
+      <table class="table table-hover mt-3 mb-5">
+        <thead class="font-weight-bold">
+        <tr>
+          <td>ID</td>
+          <td>Name</td>
+          <td>Price ($)</td>
+          <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let product of products">
+          <tr *ngIf="ids.includes(product.id)">
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }} ({{ product.year }})</td>
+            <td>{{ product.price }}</td>
+            <td>
+              <button class="btn btn-danger btn-sm" (click)="remove(product.id)">Remove</button>
+            </td>
+          </tr>
+        </ng-container>
+        </tbody>
+        <tfoot>
+        <tr class="font-weight-bold">
+          <td>Sum</td>
+          <td></td>
+          <td>{{ sum }}</td>
+          <td></td>
+        </tr>
+        </tfoot>
+      </table>
+      <div class="form-group">
+        <label for="method">Payment Method</label>
+        <select name="method" id="method" class="form-control">
+          <option value="PayPal">PayPal</option>
+          <option value="Mastercard">Mastercard</option>
+          <option value="Visa">Visa</option>
+          <option value="Cash">Cash</option>
+        </select>
+      </div>
+      <button class="btn btn-success w-100" (click)="submit()">Submit the order</button>
+    </div>
+  </div>
+
+</ng-template>

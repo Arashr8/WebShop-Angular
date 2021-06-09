@@ -1,0 +1,15 @@
+<div class="bg-dark text-white p-5 mb-5 text-center">
+  <h1>NG SHOP</h1>
+  <p>The best of the IMDB for you.</p>
+</div>
+
+<div class="alert alert-info" *ngIf="loading else product_list">
+  Loading products...
+</div>
+<ng-template #product_list>
+  <div class="row">
+    <div *ngFor="let product of products" class="col-md-6">
+      <app-product [product]="product"></app-product>
+    </div>
+  </div>
+</ng-template>

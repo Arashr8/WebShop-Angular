@@ -1,0 +1,7 @@
+{
+    "/api/orders": {
+      "target": "https://medieinstitutet-wie-products.azurewebsites.net",
+      "secure": false,
+      "changeOrigin": true
+    }
+  }
