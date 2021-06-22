@@ -3,7 +3,10 @@
 </div>
 
 <ng-template #cart>
-  <div class="card">
+  <div *ngIf="success" class="alert alert-success">
+    Order has been created successfully
+  </div>
+  <div *ngIf="!success" class="card">
     <div class="card-header">
       <h3>Checkout</h3>
       <p>Cart Items</p>

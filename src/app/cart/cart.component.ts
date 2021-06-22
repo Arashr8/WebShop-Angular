@@ -12,6 +12,7 @@ export class CartComponent implements OnInit {
   sum = 0;
   ids: number[] = [];
   products: Product[] = [];
+  success = false;
   constructor(private cartService: CartService, private submitService: SubmitService) { }
 
   ngOnInit(): void {
@@ -38,22 +39,28 @@ export class CartComponent implements OnInit {
     this.sum = localSum;
   }
   submit(): void {
-    const cart = [
-      {
-        id: 76,
-        quantity: 1
-      },
-      {
-        id: 78,
-        quantity: 2
-      }
-    ]
-
-    // Jag vet inte vilken format behöver /api/order  för att skicka 
+    const itemsFromLocalStorage = JSON.parse(localStorage.getItem('cart') || '[]');
+   
+    const cartItems = itemsFromLocalStorage.map((item: number) => {
+      return { productId: item, amount: 1 };
+    });
+    
+    const cart = {
+      id: 0,
+      paymentMethod: '',
+      totalPrice: 0,
+      created: '2021-06-21 21:00:00',
+      createdBy: '',
+      status: 0,
+      companyId: 0,
+      orderRows: cartItems
+    }
 
     
     this.submitService.submit(cart).subscribe((res: any) => {
-      console.log(res.text);
+      this.success = true;
+      this.cartService.clear();
+      this.cartService.cartUpdated.next(0);
     }, (error: any) => {
         console.log(error);
     });

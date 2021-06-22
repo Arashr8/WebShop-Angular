@@ -8,7 +8,6 @@ import {Product} from '../models/product';
 export class SubmitService {
   constructor(private http: HttpClient) { }
   submit(body: any): any {
-
     const productsUrl = '/api/orders';
     return this.http.post<any>(productsUrl, body);
   }
